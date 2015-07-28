@@ -1,0 +1,43 @@
+﻿<Window x:Class="DixitServer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DixitServer" Height="500" Width="750" Closing="Window_Closing">
+    <Grid>
+        <TabControl Margin="2">
+            <TabItem Name="tab1" Header="Игроки и комнаты">
+                <DockPanel>
+                    <DataGrid Name="usersDataGrid" Margin="5" DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto" Height="200" ItemsSource="{Binding UsersBinding}" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="5*" Binding="{Binding Path=login}" ClipboardContentBinding="{x:Null}" Header="Пользователь"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=roomId}" ClipboardContentBinding="{x:Null}" Header="№"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=IsAdmin}" ClipboardContentBinding="{x:Null}" Header="Админ"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=IsLeader}" ClipboardContentBinding="{x:Null}" Header="Ведущий"/>
+                            <DataGridTextColumn Width="4*" Binding="{Binding Path=ip}" ClipboardContentBinding="{x:Null}" Header="Инфо"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <DataGrid Name="roomsDataGrid" Margin="5" ItemsSource="{Binding RoomsBinding}" IsReadOnly="True" HorizontalContentAlignment="Center">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=roomName}" ClipboardContentBinding="{x:Null}" Header="Комната"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=password}" ClipboardContentBinding="{x:Null}" Header="Пароль"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Status}" ClipboardContentBinding="{x:Null}" Header="Статус"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=deckSize}" ClipboardContentBinding="{x:Null}" Header="Колода"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=maxScores}" ClipboardContentBinding="{x:Null}" Header="Очки"/>
+                            <DataGridTextColumn Width="6*" Binding="{Binding Path=gamers}" ClipboardContentBinding="{x:Null}" Header="Игроки"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+        
+            <TabItem Name="tab2" Header="Логи">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" >
+                        <CheckBox Name="checkBoxSave1" IsChecked="true" Margin="4,2" Content="Сохранять общий лог" HorizontalAlignment="Left" VerticalAlignment="Top" Unchecked="checkBoxSave1_Unchecked" Checked="checkBoxSave1_Checked" />
+                        <CheckBox Name="checkBoxSave2" IsChecked="true" Margin="4,2" Content="Сохранять лог пакетов" HorizontalAlignment="Right" VerticalAlignment="Top" Checked="checkBoxSave2_Checked" Unchecked="checkBoxSave2_Unchecked" />
+                    </DockPanel> 
+                    <TextBox MaxWidth="350" Name="logging" Margin="2,0" DockPanel.Dock="Left" Text="{Binding Path=getLog}" IsReadOnly="True" TextWrapping="Wrap" />
+                    <TextBox Name="logging2" Margin="2,0" DockPanel.Dock="Right" IsReadOnly="True"  />
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

@@ -1,0 +1,103 @@
+﻿<control:SergWindow x:Class="DixitClient.rooms"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:control="clr-namespace:Serg.WPF;assembly=Serg.WPF"
+        Title="Список комнат" Height="355" Width="820" MinWidth="700" Closing="onClosing" ResizeMode="CanResize"  Icon="/Client;component/Resources/Dixit.ico" Loaded="SergWindow_Loaded" SizeToContent="Manual">
+    <Grid Name="gridMain" Margin="0,2,0,3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <DataGrid Name="roomsDataGrid" Margin="5" ItemsSource="{Binding RoomsBinding}" IsReadOnly="True" HorizontalContentAlignment="Center">
+            <DataGrid.Background>
+                <SolidColorBrush x:Name="RoomsGridBackgroundBrush" Color="LightSkyBlue" Opacity="0.95"/>
+            </DataGrid.Background>
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="4*" Binding="{Binding Path=roomName}" ClipboardContentBinding="{x:Null}" Header="Комната"/>
+                <DataGridTextColumn Width="2*" Binding="{Binding Path=Pwd}" ClipboardContentBinding="{x:Null}" Header="Пароль"/>
+                <DataGridTextColumn Width="3*" Binding="{Binding Path=Status}" ClipboardContentBinding="{x:Null}" Header="Статус"/>
+                <DataGridTextColumn Width="2*" Binding="{Binding Path=maxScores}" ClipboardContentBinding="{x:Null}" Header="Очки"/>
+                <DataGridTextColumn Width="2*" Binding="{Binding Path=deckSize}" ClipboardContentBinding="{x:Null}" Header="Колода"/>
+                <DataGridTextColumn Width="9*" Binding="{Binding Path=gamers}" ClipboardContentBinding="{x:Null}" Header="Игроки"/>
+                <DataGridTextColumn Width="1*" Binding="{Binding Path=numGamers}" ClipboardContentBinding="{x:Null}" Header=""/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DockPanel Grid.Row="1">
+            <Button Name="createGame" DockPanel.Dock="Left" Content="Создать новую игру" HorizontalAlignment="Left" Margin="10,0,0,5" VerticalAlignment="Top" Width="240" Click="createGame_Click" SnapsToDevicePixels="True" Panel.ZIndex="1" />
+            <Button DockPanel.Dock="Left" Height="23" Margin="7,0,2,5" Name="buttonSound" VerticalAlignment="Stretch" Width="40" Click="buttonSound_Click">
+                <TextBlock Name="buttonSoundText" FontFamily="Webdings" FontSize="20" Text="U" Margin="-4" />
+            </Button>
+            <Button DockPanel.Dock="Left" Height="23" Margin="2,0,2,5" Name="button1" VerticalAlignment="Stretch" Width="40" Click="button1_Click">
+                <TextBlock FontFamily="Webdings" FontSize="18" Text="@" Margin="-2" />
+            </Button>
+            
+            
+            <Button Name="connectToRoom" DockPanel.Dock="Right" HorizontalAlignment="Stretch" Content="Подключиться" Margin="2,0,10,5" VerticalAlignment="Top" Click="connectToRoom_Click"/>
+            
+        </DockPanel>
+
+        <Expander Name="expander" Grid.Row="1" Width="Auto"  IsExpanded="False" Margin="10,-1,0,0" HorizontalAlignment="Stretch"  SnapsToDevicePixels="True" Panel.ZIndex="1" >
+            <DockPanel>
+                <DockPanel DockPanel.Dock="Bottom">
+                    <Border Name="buttonComplect" ToolTip="Нажмите, чтобы изменить значение" Margin="5,3" CornerRadius="5" Background="LightBlue" BorderThickness="2" BorderBrush="RoyalBlue" MouseLeftButtonDown="buttonComplect_MouseLeftButtonDown">
+                        <TextBlock Name="txtComplect" HorizontalAlignment="Center" Text="Оффициальные карты Dixit 1, 2, Odyssey"  FontWeight="Bold" Margin="8,0,0,0" DockPanel.Dock="Top" VerticalAlignment="Stretch"/>
+                    </Border>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Bottom">
+                    <TextBlock Text="Имя комнаты" FontSize="14" FontWeight="Bold" Margin="8,0,0,0" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+                    <TextBox Padding="-2,-2,0,2" MinWidth="150" Height="Auto" FontSize="14" VerticalAlignment="Center" Name="roomNameBox" Text="Новая комната" Margin="3,3,5,3" FontStyle="Italic" MouseEnter="roomNameBox_MouseEnter" />
+                    <TextBlock Text="Пароль" FontSize="14" FontWeight="Bold" Margin="8,0,0,0" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+                    <TextBox Padding="-2,-2,0,2" Height="Auto" FontSize="14" VerticalAlignment="Center" 
+                             Name="pwdBox" Text="" Margin="3,3,5,3" FontStyle="Italic"
+                             ToolTip="Оставьте поле пустым, если пароль не требуется"/>
+                </DockPanel>
+                <TextBlock Margin="8,0,0,0" DockPanel.Dock="Left" FontSize="14" FontWeight="Bold" Text="Количество очков до победы: " VerticalAlignment="Center"/>
+                <TextBlock Name="BoxScores" Foreground="DarkBlue" DockPanel.Dock="Left" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                
+                <Slider Name="sliderScores" Margin="5,0,10,0" Value="30" Interval="5" Maximum="100" Minimum="10" SmallChange="1" LargeChange="10" TickFrequency="5" 
+                        ValueChanged="sliderScores_ValueChanged" IsMoveToPointEnabled="True" DockPanel.Dock="Bottom" Foreground="#FFA9E4C6" TickPlacement="TopLeft" />
+
+            </DockPanel>
+        </Expander>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
+            <DataGrid ItemsSource="{Binding UsersBinding}" AutoGenerateColumns="False" 
+                      HorizontalAlignment="Stretch" Margin="0,5,8,3" Name="GamersDataGrid" VerticalAlignment="Stretch" IsReadOnly="True" 
+                          HeadersVisibility="Column" HorizontalGridLinesBrush="DodgerBlue" VerticalGridLinesBrush="DodgerBlue" VerticalScrollBarVisibility="Auto">
+                <DataGrid.Background>
+                    <SolidColorBrush x:Name="UsersGridBackgroundBrush" Color="LightSkyBlue" Opacity="0.95"/>
+                </DataGrid.Background>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="1*" Binding="{Binding Path=login}" ClipboardContentBinding="{x:Null}" Header="Сейчас в общей комнате"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            </DockPanel>
+            <DockPanel Grid.Row="1" Margin="0,0,0,3" HorizontalAlignment="Stretch"  Name="dockPanel1" VerticalAlignment="Stretch" LastChildFill="True">
+                <DockPanel Grid.Row="1" HorizontalAlignment="Stretch" Margin="0" Name="dockPanel2" VerticalAlignment="Stretch" LastChildFill="True" DockPanel.Dock="Bottom">
+                    <TextBox Height="Auto" Name="textBoxChat" Padding="-1,-2,0,0" Width="Auto" DockPanel.Dock="Left" Margin="5,2,13,2" FontSize="12" TextWrapping="Wrap" Panel.ZIndex="1"/>
+                </DockPanel>
+                <Border BorderBrush="DarkBlue" BorderThickness="3" Grid.Row="2" Grid.Column="1"  CornerRadius="3" Margin="0,3,8,0" DockPanel.Dock="Top" Panel.ZIndex="1">
+                    <ScrollViewer Name="scrollBox" SnapsToDevicePixels="True" VerticalScrollBarVisibility="Auto" CanContentScroll="True" IsDeferredScrollingEnabled="True" HorizontalContentAlignment="Left">
+                        <TextBlock Name="ChatBox" DockPanel.Dock="Top" Opacity="0.95" Padding="2,0,2,2" TextWrapping="Wrap" SnapsToDevicePixels="True" Margin="0,0,-3,0"/>
+                        <ScrollViewer.Background>
+                            <SolidColorBrush x:Name="ChatBackgroundBrush" Color="#FEC1FFC1"/>
+                        </ScrollViewer.Background>
+                    </ScrollViewer>
+                </Border>
+
+            </DockPanel>
+            <GridSplitter Grid.Row="0" Height="5" HorizontalAlignment="Stretch" Margin="0,0,0,-3" Name="gridSplitter1" VerticalAlignment="Bottom" ResizeDirection="Rows" Background="#01000000" ResizeBehavior="BasedOnAlignment" />
+        </Grid>
+        <Button Content="Отправить" Grid.Row="2" Grid.Column="1" Width="Auto" Name="buttonChat" Margin="0,0,8,0" HorizontalAlignment="Stretch" Click="buttonChat_Click" BorderThickness="0" IsDefault="True" Panel.ZIndex="1" VerticalAlignment="Top" />
+        <GridSplitter HorizontalAlignment="Right" Name="gridSplitter2" Width="5"  VerticalAlignment="Stretch" ResizeBehavior="CurrentAndNext" Background="#0D000000" />
+    </Grid>
+</control:SergWindow>

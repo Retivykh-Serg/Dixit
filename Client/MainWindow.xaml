@@ -1,0 +1,171 @@
+﻿<control:SergWindow x:Class="DixitClient.MainWindow" Closing="Window_Closing_1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:control="clr-namespace:Serg.WPF;assembly=Serg.WPF"
+        Title="Dixit" Height="550" MinWidth="850" MinHeight="450" Width="950" Icon="/Client;component/Resources/Dixit.ico">
+    <Grid Margin="0,9,0,0" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="232*"/>
+            <ColumnDefinition Width="439*"/>
+            <ColumnDefinition Width="255*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Name="LeftGrid" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <DockPanel>
+                <DockPanel DockPanel.Dock="Bottom">
+                    <Button Name="buttonHelper" Padding="-1" FontSize="18" FontFamily="Webdings" Width="35" Margin="1,0,3,1" Grid.Row="0" DockPanel.Dock="Right" Click="buttonHelper_Click">
+                        <TextBlock FontFamily="Webdings" FontSize="18" Text="@" Margin="-2" />
+                    </Button>
+                    <Button DockPanel.Dock="Right" Height="23" Margin="1,0" Name="buttonSound" VerticalAlignment="Stretch" Width="35" Click="buttonSound_Click">
+                        <TextBlock Name="buttonSoundText" FontFamily="Webdings" FontSize="20" Text="U" Margin="-1,-3,0,0" />
+                    </Button>
+                    <Button Content="Выйти из комнаты" Click="Button_Click_1" Margin="3,0,3,1" Grid.Row="0" DockPanel.Dock="Left"/>
+                </DockPanel>
+                
+                <DataGrid Grid.Row="0" LoadingRow="GamersdataGrid_LoadingRow" ItemsSource="{Binding UsersBinding}" AutoGenerateColumns="False" 
+                      HorizontalAlignment="Stretch" Margin="5,3" Name="GamersdataGrid" VerticalAlignment="Stretch" IsReadOnly="True" 
+                          HeadersVisibility="Column" HorizontalGridLinesBrush="DodgerBlue" VerticalGridLinesBrush="DodgerBlue" >
+                    <DataGrid.Background>
+                        <SolidColorBrush x:Name="UsersGridBackgroundBrush" Color="LightSkyBlue"/>
+                    </DataGrid.Background>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="5*" Binding="{Binding Path=login}" ClipboardContentBinding="{x:Null}" Header="Пользователь"/>
+                        <DataGridTextColumn Width="2*" Binding="{Binding Path=scores}" ClipboardContentBinding="{x:Null}" Header="Очки"/>
+                        <DataGridTemplateColumn Width="1*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Black" BorderThickness="2" CornerRadius="2" Margin="1">
+                                        <Rectangle Cursor="Pen"  Stretch="Fill" Fill="{Binding Path=color}"/>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+            <GridSplitter HorizontalAlignment="Stretch" Margin="0,0,0,-4" Name="gridSplitterLeftRows" VerticalAlignment="Bottom" ResizeDirection="Rows" ResizeBehavior="CurrentAndNext" Opacity="0.01" Height="7"/>
+            <DockPanel Grid.Row="1" HorizontalAlignment="Stretch"  Name="dockPanel1" VerticalAlignment="Stretch" LastChildFill="True">
+                <DockPanel Grid.Row="1" HorizontalAlignment="Stretch" Margin="0" Name="dockPanel2" VerticalAlignment="Stretch" LastChildFill="True" DockPanel.Dock="Bottom">
+                    <Button Content="Отправить" Width="80" Name="buttonChat" Margin="3" DockPanel.Dock="Right" HorizontalAlignment="Right" Click="buttonChat_Click" BorderThickness="0" IsDefault="True" Panel.ZIndex="1" />
+                    <TextBox Padding="-1,-2,0,0" Height="Auto" Name="textBoxChat" Width="Auto" DockPanel.Dock="Left" Margin="3" FontSize="12" TextWrapping="Wrap" Panel.ZIndex="1" />
+                </DockPanel>
+                <Border BorderBrush="DarkBlue" BorderThickness="3" Grid.Row="2" Grid.Column="1"  CornerRadius="3" Margin="5,3,5,0" DockPanel.Dock="Top" Panel.ZIndex="1">
+                    <ScrollViewer Name="scrollBox" SnapsToDevicePixels="True" VerticalScrollBarVisibility="Auto" CanContentScroll="True" IsDeferredScrollingEnabled="True" HorizontalContentAlignment="Left">
+                        <TextBlock Name="ChatBox" DockPanel.Dock="Top" Opacity="0.95" Padding="2,0,2,2" TextWrapping="Wrap" SnapsToDevicePixels="True" Margin="0,0,-3,0"/>
+                        <ScrollViewer.Background>
+                            <SolidColorBrush x:Name="ChatBackgroundBrush" Color="#FEC1FFC1"/>
+                        </ScrollViewer.Background>
+                    </ScrollViewer>
+                </Border>
+                
+            </DockPanel>
+        </Grid>
+        
+        <Grid Name="CenterGrid" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="394*"/>
+                <RowDefinition Height="117*"/>
+            </Grid.RowDefinitions>
+            <Border Name="VoatingPanelBorder" BorderBrush="DarkBlue" BorderThickness="3" CornerRadius="3" Margin="3" Grid.Row="0">
+                <Grid Grid.Row="2" HorizontalAlignment="Stretch" Margin="0" Name="VoatingPanelGrid" VerticalAlignment="Stretch">
+                    <Grid.Background>
+                        <LinearGradientBrush x:Name="VoatingBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.93">
+                            <GradientStop Color="#FC80CFFF" Offset="0" />
+                            <GradientStop Color="#FCADF0CE" Offset="0.8" />
+                            <GradientStop Color="#FC48D1CC" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <UniformGrid Name="VoatingPanel" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"  SnapsToDevicePixels="True" />
+                    <TextBox Grid.Row="2" HorizontalAlignment="Stretch" Margin="2" Name="textBoxTask" VerticalAlignment="Stretch" FontWeight="Bold" FontSize="14" FontStretch="Normal" Text="sample text" TextWrapping="NoWrap" TextAlignment="Left" FontFamily="Segoe UI" MouseEnter="textBoxTask_MouseEnter" />
+                    <TextBlock Name="TaskBlock" Margin="3" FontWeight="Bold" FontSize="20" Grid.Row="2" TextOptions.TextFormattingMode="Display" TextWrapping="Wrap"  Focusable="True" ClipToBounds="True" HorizontalAlignment="Center" VerticalAlignment="Bottom" TextTrimming="None" Panel.ZIndex="3">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush x:Name="TaskBrush" Color="Navy" />
+                        </TextBlock.Foreground>
+                        <TextBlock.Triggers>
+                            <EventTrigger RoutedEvent="TextBlock.GotFocus">
+                              <BeginStoryboard>
+                                <Storyboard>
+                                  <DoubleAnimation
+                                        Storyboard.TargetName="TaskBlock" 
+                                        Storyboard.TargetProperty="(TextBlock.Opacity)"
+                                        From="0.0" To="1.0" Duration="0:0:3" />
+                                </Storyboard>
+                              </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                              <BeginStoryboard>
+                                <Storyboard>
+                                  <ColorAnimation
+                                    Storyboard.TargetName="TaskBrush" 
+                                    Storyboard.TargetProperty="Color"
+                                    From="Navy" To="DarkMagenta" Duration="0:0:1"
+                                   />
+                                </Storyboard>
+                              </BeginStoryboard>
+                            </EventTrigger>
+                             <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                              <BeginStoryboard>
+                                <Storyboard>
+                                  <ColorAnimation
+                                    Storyboard.TargetName="TaskBrush" 
+                                    Storyboard.TargetProperty="Color"
+                                    From="DarkMagenta" To="Navy" Duration="0:0:1"
+                                   />
+                                </Storyboard>
+                              </BeginStoryboard>
+                            </EventTrigger>
+                          </TextBlock.Triggers>
+                    </TextBlock>
+                </Grid>
+            </Border>
+            <GridSplitter HorizontalAlignment="Stretch" Margin="0,0,0,-3" Height="7" Name="gridSplitterCenterRows" VerticalAlignment="Bottom" ResizeDirection="Rows" ResizeBehavior="CurrentAndNext" Opacity="0.01" />
+            <Border Name="userCardsPanelBorder" BorderBrush="DarkBlue" BorderThickness="3" Grid.Row="2" CornerRadius="3" Margin="3">
+                <Grid Grid.Row="2" HorizontalAlignment="Stretch" Margin="0" Name="userCardsPanel" VerticalAlignment="Stretch" >
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FCBDEEAE" Offset="0" />
+                            <GradientStop Color="#FC48D1DC" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </Border>
+
+        </Grid>
+        
+        <Grid Name="RightGrid" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="410*"/>
+                <RowDefinition Height="120*"/>
+            </Grid.RowDefinitions>
+            <Button Content="OK" Name="buttonTaskOK" Click="buttonTaskOK_Click" Margin="5" Grid.Row="1" FontSize="16" FontWeight="Bold"/>
+            <GridSplitter HorizontalAlignment="Stretch" Margin="0,0,0,-3" Height="7" Name="gridSplitterRightRows" VerticalAlignment="Bottom" ResizeDirection="Rows" ResizeBehavior="CurrentAndNext" Opacity="0.01"/>
+            <Border Name="ImgBrdr" BorderBrush="DarkBlue" BorderThickness="3" CornerRadius="2" Margin="3,3,3,3" SnapsToDevicePixels="True">
+                <Image HorizontalAlignment="Stretch" Name="imageLarge" Stretch="Fill" VerticalAlignment="Stretch" IsHitTestVisible="False" SnapsToDevicePixels="True"/>
+            </Border>
+            <Border BorderBrush="Transparent" BorderThickness="1" Height="15" HorizontalAlignment="Right" Name="borderHelper" VerticalAlignment="Top" Width="15" Background="#02000000" MouseLeftButtonDown="borderHelper_MouseLeftButtonDown" />
+        </Grid>
+        
+        <GridSplitter Grid.Column="0" Grid.RowSpan="2" HorizontalAlignment="Right" Name="gridSplitter1" VerticalAlignment="Stretch" Width="5" ResizeDirection="Columns" ResizeBehavior="CurrentAndNext" Opacity="0.01" />
+        <GridSplitter Grid.Column="1" Margin="0,0,-2,0" HorizontalAlignment="Right" Name="gridSplitter2" VerticalAlignment="Stretch" Width="9" ResizeDirection="Columns" ResizeBehavior="CurrentAndNext" Opacity="0.01" />
+        
+        
+    </Grid>
+</control:SergWindow>

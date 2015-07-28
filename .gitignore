@@ -1,0 +1,8 @@
+*.sln
+*.suo
+*.pdb
+*.csproj
+bin/
+obj/
+Properties/
+Resources/

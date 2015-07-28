@@ -1,0 +1,121 @@
+﻿<control:SergWindow x:Class="DixitClient.helper"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:control="clr-namespace:Serg.WPF;assembly=Serg.WPF"
+        Title="Настройки" Height="371" Width="540" Icon="/Client;component/Resources/Dixit.ico">
+    <Grid>
+        <Border Margin="10">
+        <TabControl HorizontalAlignment="Stretch" Name="tabControl1" VerticalAlignment="Stretch">
+                <TabItem Header="Правила игры" Name="tabItemRools" GotFocus="tabItemRools_GotFocus">
+                    <Grid>
+                        <ScrollViewer CanContentScroll="True" Background="Transparent" IsDeferredScrollingEnabled="True" >
+                            <StackPanel Grid.Row="0" Margin="0,2,0,0">
+                            <TextBlock TextAlignment="Justify" Margin="20,2,5,0" FontSize="14" Foreground="DarkBlue" FontWeight="Bold" TextWrapping="Wrap">
+                                Dixit - это карточная игра, построенная на ассоциациях.</TextBlock>
+                                <TextBlock TextAlignment="Justify" Margin="4,2" FontSize="14" Foreground="DarkBlue" TextWrapping="Wrap">
+                                Цель игры - первым набрать определенное количество очков.</TextBlock>
+                                <TextBlock TextAlignment="Justify" Margin="4,2" FontSize="14" Foreground="DarkBlue" TextWrapping="Wrap">
+                                У каждого игрока на руке есть 6 карт с различными изображениями.
+                                В начале игры случайным образом среди всех игроков выбирается ведущий игрок.
+                                Он выбирает из своих карт одну, и называет фразу, с которой эта карта у него ассоциируется.
+                                Важно подобрать такую ассоциацию, чтобы ее сумела отгадать только часть игроков, но не все.
+                            </TextBlock>
+                                <TextBlock TextAlignment="Justify" Margin="4,2" FontSize="14" Foreground="DarkBlue" TextWrapping="Wrap">
+                                На следующем этапе каждый игрок из своих 6 карт выбирает ту, которая, на его взгляд, 
+                                больше всего подходит под озвученную ассоциацию, и сбрасывает ее.
+                            </TextBlock>
+                                <TextBlock TextAlignment="Justify" Margin="4,2" FontSize="14" Foreground="DarkBlue" TextWrapping="Wrap">
+                                Когда все участники сбросили карту, ведущий их все перемешывает и выкладывает
+                                в случайном порядке лицевой стороной вверх. Цель игроков - найти среди всех карт ассоциацию,
+                                которую загадал ведущий. После ознакомления с картами игроки тайно голосуют за определенную карту.
+                                По итогам голосования определяются очки, затем все добирают на руку 1 карту и ход ведущего передается следующему игроку.
+                            </TextBlock>
+                                <TextBlock TextAlignment="Justify" Margin="4,2" FontSize="14" Foreground="DarkBlue" TextWrapping="Wrap">
+                                Ведущий игрок зарабатывает 3 очка в случае, если за его карту кто-то проголосовал.
+                                Однако если все игроки угадали карту ведущего, или, наоборот, ни один не угадал, ведущий теряет 2 очка.</TextBlock>
+                                <TextBlock TextAlignment="Justify" Margin="4,2" FontSize="14" Foreground="DarkBlue" TextWrapping="Wrap">
+                                Каждый игрок, угадавший карту ведущего, получает 3 очка.</TextBlock>
+                                <TextBlock TextAlignment="Justify" Margin="4,2" FontSize="14" Foreground="DarkBlue" TextWrapping="Wrap">
+                                Дополнительно каждый игрок получает количество очков, равное числу голосов за сброшенную им карту. 
+                                Однако если игрок ошибся и проголосовал за свою карту, он теряет 1 очко.</TextBlock>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
+                    <TabItem Header="Настройки фона окна" Name="tabItemBack" GotFocus="tabItemBack_GotFocus">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="9*" />
+                        <ColumnDefinition Width="15*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
+                        <Label Padding="5,2,0,0" Content="Прозрачность элементов" Margin="2" Grid.Column="0" Grid.Row="0"
+                               ToolTip="Значение прозрачности для окна чата, списка игроков и области голосования"/>
+                        <Label Padding="5,2,0,0" Content="Размер фигуры" Margin="2" Grid.Column="0" Grid.Row="1"
+                               ToolTip="Размер генерируемых элементов фона окна - кругов и стрелок"/>
+                    <Label Padding="5,2,0,0" Content="Количество колец" Margin="2" Grid.Column="0" Grid.Row="2"
+                           ToolTip="Число сегментов в каждом генерируемом круге"/>
+                    <Label Padding="5,2,0,0" Content="Количество фигур" Margin="2" Grid.Column="0" Grid.Row="3"
+                           ToolTip="Число фигур, генерируемых на фоне. Для улучшения отклика и анимации рекомендуется выставить 0 и включить простую заливку фона"/>
+                    <Label Padding="5,2,0,0" Content="Порог 1. Только круги" Margin="2" Grid.Column="0" Grid.Row="4"
+                           ToolTip="Число генерируемых кругов для фона. Элементы после порога 1 - преимущественно круги, но возможна генерация стрелок "/>
+                    <Label Padding="5,2,0,0" Content="Порог 2. Круги > стрелки" Margin="2" Grid.Column="0" Grid.Row="5"
+                           ToolTip="Если число генерируемых элементов выше второго порога, вероятность появления кругов и стрелок одинакова"/>
+                    <Label Padding="5,2,0,0" Content="Тип заполнения фона" Margin="2" Grid.Column="0" Grid.Row="6"/>
+                    <Label Padding="5,2,0,0" Content="Заливка фона" Margin="2" Grid.Column="0" Grid.Row="7"/>
+
+                        <TextBlock Name="textBlock0" Margin="2" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"/>
+                        <TextBlock Name="textBlock1" Margin="2" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"/>
+                    <TextBlock Name="textBlock2" Margin="2" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"/>
+                    <TextBlock Name="textBlock3" Margin="2" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"/>
+                    <TextBlock Name="textBlock4" Margin="2" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"/>
+                    <TextBlock Name="textBlock5" Margin="2" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"/>
+                        <Slider Foreground="#FFA9E4C6" Name="slider0" Grid.Column="1" Grid.Row="0" Margin="2" Interval="5" Maximum="1" Minimum="0" LargeChange="0.1" TickFrequency="0.05" TickPlacement="TopLeft" IsSnapToTickEnabled="False" SmallChange="0.01" Panel.ZIndex="1" ValueChanged="slider0_ValueChanged" />
+                        <Slider Foreground="#FFA9E4C6" Name="slider1" Grid.Column="1" Grid.Row="1" Margin="2" Interval="5" Maximum="80" Minimum="20" LargeChange="10" TickFrequency="10" TickPlacement="TopLeft" IsSnapToTickEnabled="False" SmallChange="1" Panel.ZIndex="1" ValueChanged="slider1_ValueChanged" />
+                    <Slider Foreground="#FFA9E4C6" Name="slider2" Grid.Column="1" Grid.Row="2"  Margin="2" Interval="5" Maximum="8" Minimum="1" LargeChange="2" TickFrequency="4" TickPlacement="TopLeft" IsSnapToTickEnabled="False" SmallChange="1" Panel.ZIndex="1" ValueChanged="slider2_ValueChanged" />
+                    <Slider Foreground="#FFA9E4C6" Name="slider3" Grid.Column="1" Grid.Row="3"  Margin="2" Interval="5" Maximum="500" Minimum="0" LargeChange="100" TickFrequency="100" TickPlacement="TopLeft" IsSnapToTickEnabled="False" SmallChange="1" Panel.ZIndex="1" ValueChanged="slider3_ValueChanged" />
+                    <Slider Foreground="#FFA9E4C6" Name="slider4" Grid.Column="1" Grid.Row="4"  Margin="2" Interval="5" Maximum="500" Minimum="0" LargeChange="100" TickFrequency="5" TickPlacement="TopLeft" IsSnapToTickEnabled="False" SmallChange="1" Panel.ZIndex="1" ValueChanged="slider4_ValueChanged" />
+                    <Slider Foreground="#FFA9E4C6" Name="slider5" Grid.Column="1" Grid.Row="5"  Margin="2" Interval="5" Maximum="500" Minimum="0" LargeChange="100" TickFrequency="5" TickPlacement="TopLeft" IsSnapToTickEnabled="False" SmallChange="1" Panel.ZIndex="1" ValueChanged="slider5_ValueChanged" />
+
+                    <UniformGrid Grid.Column="1" Grid.Row="8" Rows="1" >
+                        <Button Name="btnSave" Content="Сохранить" Margin="2" Grid.Row="8" Click="btnSave_Click" />
+                        <Button Name="btnBack" Content="Вернуться" Margin="2" Grid.Row="8" Click="btnBack_Click" />
+                    </UniformGrid>
+                    <Border BorderBrush="MediumBlue" ToolTip="Нажмите, чтобы изменить значение" Background="Honeydew" CornerRadius="5"  Margin="10,2" BorderThickness="2" Grid.Column="1" Grid.Row="6" Name="border1" MouseLeftButtonDown="border1_MouseLeftButtonDown">
+                        <TextBlock Name="border1text" Text="Растянуть" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                        <Border BorderBrush="MediumBlue" ToolTip="Нажмите, чтобы изменить значение" Background="Honeydew" CornerRadius="5"  Margin="10,2" BorderThickness="2" Grid.Column="1" Grid.Row="7" Name="border2" MouseLeftButtonDown="border2_MouseLeftButtonDown">
+                        <TextBlock Name="border2text" Text="Заливка включена" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </Grid>
+            </TabItem>
+                <TabItem Header="О программе" Name="tabItemAbout" GotFocus="tabItemAbout_GotFocus">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Margin="0,10,0,0">
+                            <TextBlock Margin="2" FontSize="14" Foreground="DarkBlue" FontWeight="Bold">Автор программы: Сергей Ретивых</TextBlock>
+                            <TextBlock Margin="2" FontSize="14" Foreground="DarkBlue" FontWeight="Bold" TextWrapping="Wrap">Контакты: serg-13@mail.ru, icq 407657675, http://vk.com/id52977253</TextBlock>
+                            <TextBlock Margin="2" FontSize="14" Foreground="DarkBlue" FontWeight="Bold" TextWrapping="Wrap">Программа предназначена только для частного пользования.</TextBlock>
+                            <TextBlock Margin="5" FontSize="14" Foreground="DarkBlue" FontWeight="Bold" TextWrapping="Wrap">Обо всех обнаруженных ошибках, а также пожеланиях по улучшению обязательно сообщайте! :)</TextBlock>
+                        </StackPanel>
+                        
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Border>
+    </Grid>
+</control:SergWindow>
